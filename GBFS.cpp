@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include "GBFS.h"
 using namespace std;
 #define StateNum 9
 #define nodesNum 400000
@@ -16,11 +17,6 @@ int calculate_cost(Node* n) {
 }
 bool Used[UsedSize];
 Node nodes[nodesNum];
-int mapkey(Node* n);
-void initUsed();
-bool NodeTest(Node* n, Node* a);
-bool valid_move(Node* n, int dir);
-void childNode(Node* n, Node* a, int dir);
 int dir[4] = { 1,3,-1,-3 };
 static int index = 0;
 Node* GreedyBestFirstSearch(Node* initState, Node* goalState) {
