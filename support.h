@@ -16,6 +16,9 @@ struct Node {
 	Node* pre;
 	int step;
 };
+struct CNode :Node {
+	int cost;
+};
 bool valid_mov(int pos, int dir);
 void childNode(Node& n, Node t, int dir);
 bool NodeTest(Node* n, Node* goal);
