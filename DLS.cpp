@@ -1,8 +1,6 @@
 #include "dls.h"
-int dir[4] = { 1,3,-1,-3 };
 Node* cutoff;
 Node* failure;
-Node nodes[400000];
 Node* RDLS(Node* node, Node* goal, int limit) {
 	//printnd(*node);
 	static int index = 0;

@@ -9,6 +9,7 @@ using namespace std;
 //	int step;
 //	int cost; //启发函数代价
 //};
+Node nodes[nodesNum];
 struct cmp_small_first {
 	bool operator ()(CNode* a, CNode* b) {
 		return a->cost > b->cost;//最小值优先
@@ -29,9 +30,9 @@ int NotInPlace(int sta[]) {
 	}
 	return ans;
 }
-bool Used[UsedSize];
-CNode nodes[nodesNum];
-int mdir[4] = { 1,3,-1,-3 };
+
+CNode cnodes[nodesNum];
+
 CNode* GBFS_Failure;
 static int index = 0;
 CNode* GreedyBestFirstSearch(CNode* initState, CNode* goalState) {
@@ -40,20 +41,22 @@ CNode* GreedyBestFirstSearch(CNode* initState, CNode* goalState) {
 	initUsed(Used);
 	while (true) {
 		if (frontier.empty()) {
-			
+			printf("GBFS failure\n");
 			return GBFS_Failure;
 		}
 		CNode* node = frontier.top();
 		frontier.pop();
 		if (NodeTest(node, goalState)) {
+			printf("find goal\n");
 			return node;
 		}
 		Used[mapkey(node)] = true;
 		for (int i = 0; i < 4; i++) {
-			if (valid_mov(node->pos, mdir[i])) {
-				CNode* child = &nodes[index];
+			if (valid_mov(node->pos, dir[i])) {
+				CNode* child = &cnodes[index];
 				index++;
-				childNode(*child, *node, mdir[i]);
+				childNode(*child, *node, dir[i]);
+				child->pre = node;
 				child->cost = calculate_cost(child);
 				if (Used[mapkey(child)] == false) {
 					//not in frontier?

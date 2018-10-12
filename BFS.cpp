@@ -1,18 +1,12 @@
 #include "BFS.h"
 using namespace std;
-int d[] = { 1,3,-1,-3 };
-bool used[1000000000] = { false };
 Node* BFSfailure;
-Node BFSstates[400000];
 static int index = 0;
-void initused() {
-	for (int i = 0; i < 1000000000; i++) {
-		used[i] = false;
-	}
-}
+extern bool Used[UsedSize];
+extern Node nodes[nodesNum];
 Node* BFS(Node* initNode, Node* targetNode) {
 	index = 0;
-	initused();
+	initUsed(Used);
 	if (NodeTest(initNode, targetNode)) {
 		return initNode;
 	}
@@ -26,15 +20,15 @@ Node* BFS(Node* initNode, Node* targetNode) {
 		}
 		node = q.front();
 		q.pop();
-		used[node->key] = true;
+		Used[node->key] = true;
 		for (int i = 0; i < 4; i++) {
-			if (valid_mov(node->pos, d[i])) {
+			if (valid_mov(node->pos, dir[i])) {
 				//Node* child = new Node();
-				Node* child = &BFSstates[index];
+				Node* child = &nodes[index];
 				index++;
-				childNode(*child, *node, d[i]);
+				childNode(*child, *node, dir[i]);
 				child->pre = node;
-				if (used[child->key]==false) {
+				if (Used[child->key]==false) {
 					if (NodeTest(child, targetNode)) {
 						printf("find target");
 						return child;

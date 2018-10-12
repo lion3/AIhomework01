@@ -4,10 +4,15 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+#define UsedSize 1000000000
 #define StateNum 9
-int* generateRandomly();
+#define nodesNum 400000
+extern bool Used[UsedSize];
+extern int dir[4];
+extern Node nodes[nodesNum];
 
+int* generateRandomly();
+void initUsed(bool Used[]);
 bool check_inverse(int Num[]);
 struct Node {
 	int sta[StateNum];
@@ -18,6 +23,20 @@ struct Node {
 };
 struct CNode :Node {
 	int cost;
+	int index;
+	CNode() {
+
+	}
+	CNode(Node n) {
+		step = n.step;
+		pre = n.pre;
+		pos = n.pos;
+		for (int i = 0; i < StateNum; i++) {
+			sta[i] = n.sta[i];
+		}
+		key = n.key;
+		cost = 0;
+	}
 };
 bool valid_mov(int pos, int dir);
 void childNode(Node& n, Node t, int dir);

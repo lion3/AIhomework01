@@ -4,10 +4,11 @@
 #include "support.h"
 #include "BFS.h"
 #include "dls.h"
+#include "GBFS.h"
 using namespace std;
 //int initvalue[] = { 1,2,3,0,4,6,7,5,8 };
 
-int initvalue[] = { 6,5,7,1,2,8,0,4,3 };
+
 struct A {
 	int val;
 	int cost;
@@ -45,13 +46,16 @@ void test_pri_q() {
 		printf("val %d cost %d\n", t->val, t->cost);
 	}
 }
+int initvalue[] = { 6,5,7,1,2,8,0,4,3 };
 int main() {
-	test_pri_q();
-	//Node* target = new Node();
-	//target->key = 123456780;
+	//test_pri_q();
+	CNode* target = new CNode();
+	target->key = 123456780;
 
-	//Node* init;
-	//init = initNodeithVal(initvalue);
+	CNode* init;
+	init = &CNode(*initNodeithVal(initvalue));
+	CNode* result = GreedyBestFirstSearch(init, target);
+	printrt(*result);
 	////init = new Node();
 	////initialNode(init, 123046758, 3, NULL, 0, initvalue);
 
