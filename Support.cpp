@@ -1,7 +1,7 @@
 #include "support.h"
 bool Used[UsedSize] = { false };
 int dir[4] = { 1,3,-1,-3 };
-Node nodes[nodesNum];
+CNode nodes[nodesNum];
 void initUsed() {
 	for (int i = 0; i < 1000000000; i++) {
 		Used[i] = false;

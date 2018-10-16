@@ -9,8 +9,6 @@ using namespace std;
 #define nodesNum 400000
 extern bool Used[UsedSize];
 extern int dir[4];
-extern Node nodes[nodesNum];
-
 int* generateRandomly();
 void initUsed(bool Used[]);
 bool check_inverse(int Num[]);
@@ -38,6 +36,7 @@ struct CNode :Node {
 		cost = 0;
 	}
 };
+extern CNode nodes[nodesNum];
 bool valid_mov(int pos, int dir);
 void childNode(Node& n, Node t, int dir);
 bool NodeTest(Node* n, Node* goal);

@@ -1,4 +1,5 @@
 #include "dls.h"
+extern CNode nodes[nodesNum];
 Node* cutoff;
 Node* failure;
 Node* RDLS(Node* node, Node* goal, int limit) {

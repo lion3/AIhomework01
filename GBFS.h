@@ -9,6 +9,7 @@ int mapkey(Node* n);
 void initUsed(bool used[]);
 
 int NotInPlace(int sta[]);
+int block_distance(int sta[]);
 int calculate_cost(CNode* n);
 #endif // !GBFS_H
 

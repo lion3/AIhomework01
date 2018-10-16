@@ -9,15 +9,22 @@ using namespace std;
 //	int step;
 //	int cost; //启发函数代价
 //};
-Node nodes[nodesNum];
-struct cmp_small_first {
+extern CNode nodes[nodesNum];
+struct cmp_cost_small_first {
 	bool operator ()(CNode* a, CNode* b) {
 		return a->cost > b->cost;//最小值优先
+	//	return a->cost+a->step > b->cost+b->step;//最小值优先
+	}
+};
+struct cmp_cost_step_small_first {
+	bool operator ()(CNode* a, CNode* b) {
+		return a->cost+a->step > b->cost+b->step;//最小值优先
 	}
 };
 int calculate_cost(CNode* n) {
 	int cost = 0;
-	cost = NotInPlace(n->sta);
+	//cost = NotInPlace(n->sta);
+	cost = block_distance(n->sta);
 	return cost;
 }
 
@@ -30,13 +37,25 @@ int NotInPlace(int sta[]) {
 	}
 	return ans;
 }
+int block_distance(int sta[]) {
+	int ans = 0;
+	for (int i = 0; i < StateNum; i++) {
+		int x,y = 0;
+		int tx,ty = 0;
+		int t = sta[i];
+		t = (t - 1) % 8;
+		x = i % 3; y = i / 3; 
+		tx = t % 3; ty = t / 3;
+		ans += abs(tx - x) + abs(ty - y);
+	}
+	return ans;
+}
 
-CNode cnodes[nodesNum];
 
 CNode* GBFS_Failure;
 static int index = 0;
 CNode* GreedyBestFirstSearch(CNode* initState, CNode* goalState) {
-	priority_queue<CNode*,vector<CNode*>, cmp_small_first> frontier;
+	priority_queue<CNode*,vector<CNode*>, cmp_cost_small_first> frontier;
 	frontier.push(initState);
 	initUsed(Used);
 	while (true) {
@@ -53,7 +72,7 @@ CNode* GreedyBestFirstSearch(CNode* initState, CNode* goalState) {
 		Used[mapkey(node)] = true;
 		for (int i = 0; i < 4; i++) {
 			if (valid_mov(node->pos, dir[i])) {
-				CNode* child = &cnodes[index];
+				CNode* child = &nodes[index];
 				index++;
 				childNode(*child, *node, dir[i]);
 				child->pre = node;

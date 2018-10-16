@@ -3,7 +3,7 @@ using namespace std;
 Node* BFSfailure;
 static int index = 0;
 extern bool Used[UsedSize];
-extern Node nodes[nodesNum];
+extern CNode nodes[nodesNum];
 Node* BFS(Node* initNode, Node* targetNode) {
 	index = 0;
 	initUsed(Used);

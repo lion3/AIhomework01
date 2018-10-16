@@ -5,6 +5,7 @@
 #include "BFS.h"
 #include "dls.h"
 #include "GBFS.h"
+#include "Search.h"
 using namespace std;
 //int initvalue[] = { 1,2,3,0,4,6,7,5,8 };
 
@@ -48,14 +49,19 @@ void test_pri_q() {
 }
 int initvalue[] = { 6,5,7,1,2,8,0,4,3 };
 int main() {
+	GraphSearch gsearch;
+	SNode init, target;
+	gsearch.SearchResult(&init,&target);
 	//test_pri_q();
-	CNode* target = new CNode();
-	target->key = 123456780;
 
-	CNode* init;
-	init = &CNode(*initNodeithVal(initvalue));
-	CNode* result = GreedyBestFirstSearch(init, target);
-	printrt(*result);
+	//CNode* target = new CNode();
+	//target->key = 123456780;
+
+	//CNode* init;
+	//init = &CNode(*initNodeithVal(initvalue));
+	//CNode* result = GreedyBestFirstSearch(init, target);
+	//printrt(*result);
+
 	////init = new Node();
 	////initialNode(init, 123046758, 3, NULL, 0, initvalue);
 
