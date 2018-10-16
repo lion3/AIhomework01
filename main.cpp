@@ -47,59 +47,50 @@ void test_pri_q() {
 		printf("val %d cost %d\n", t->val, t->cost);
 	}
 }
-int initvalue[] = { 6,5,7,1,2,8,0,4,3 };
+//int initvalue[] = { 6,5,7,1,2,8,0,4,3 };
+int initvalue[] = { 1,2,3,
+					4,0,6,
+					7,5,8 };
+int targetvalue[] = { 1,2,3,
+					  4,5,6,
+					  7,8,0 };
+int failurenum[] = { -1,-1,-1,-1,-1,-1,-1,-1,-1 };
+int cutoffnum[] = { 0,0,0,0,0,0,0,0,0 };
+SNode* Search::nodes = new SNode[nodesNum];
+SNode* Search::Failure = initSNode(failurenum);
+SNode* Search::Cutoff = initSNode(cutoffnum);
+int Search::dir[4] = { 1,3,-1,-3 };
+bool Search::used[nodesNum] = { false };
 int main() {
-	GraphSearch gsearch;
-	SNode init, target;
-	gsearch.SearchResult(&init,&target);
-	//test_pri_q();
+	AstarSearch astar_search;
+	GreedySearch greedy_search;
+	IterativeDepthSearch ids_search;
+	SNode* target;
+	target = initSNode(targetvalue);
 
-	//CNode* target = new CNode();
-	//target->key = 123456780;
+	vector<int*> states;
+	for (int i = 0; i < 100; i++) {
+		int* state = generateRandomly();
+		if (check_inverse(state)) {
+			states.push_back(state);
+		}
+	}
+	printf("generate %d\n", states.size());
+	for (int i = 0; i < states.size(); i++)
+	{
+		SNode* tempinit = initSNode(states[i]);
+		astar_search.SearchResult(tempinit,target);
+		astar_search.print_result();
+		system("pause");
+		greedy_search.SearchResult(tempinit, target);
+		greedy_search.print_result();
+		system("pause");
+		ids_search.SearchResult(tempinit, target);
+		ids_search.print_result();
+		system("pause");
 
-	//CNode* init;
-	//init = &CNode(*initNodeithVal(initvalue));
-	//CNode* result = GreedyBestFirstSearch(init, target);
-	//printrt(*result);
-
-	////init = new Node();
-	////initialNode(init, 123046758, 3, NULL, 0, initvalue);
-
-	//printf("BFS \n");
-	//Node* result = BFS(init, target);
-	//printrt(*result);
-
-	//printf("\n\n\n\n");
-	//printf("DLS \n");
-	//int limit = 4;
-	//Node* result2 = DLS(init, target, limit);
-	//printrt(*result2);
-	//printf("\n\n\n\n");
-	//printf("IDS \n");
-	//Node* result3 = IDS(init, target);
-	//printrt(*result3);
-
-	//vector<int*> states;
-	//for (int i = 0; i < 10; i++) {
-	//	int* state = generateRandomly();
-	//	if (check_inverse(state)) {
-	//		states.push_back(state);
-	//	}
-	//}
-	//printf("generate %d\n", states.size());
-	//for (int i = 0; i < states.size(); i++)
-	//{
-	//	Node* tempinit = initNodeithVal(states[i]);
-	//	printf("BFS %d\n", i);
-	//	Node* result = BFS(tempinit, target);
-	//	if (result == NULL) {
-	//		printnd(*tempinit);
-	//	}
-	//	else {
-	//		printrt(*result);
-	//	}
-	//}
-	//
+	}
+	
 
 	system("pause");
 	return 0;
