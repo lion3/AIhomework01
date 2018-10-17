@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <time.h>
 #include "support.h"
 #include "BFS.h"
 #include "dls.h"
@@ -69,28 +70,44 @@ int main() {
 	target = initSNode(targetvalue);
 
 	vector<int*> states;
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 20; i++) {
 		int* state = generateRandomly();
 		if (check_inverse(state)) {
 			states.push_back(state);
 		}
 	}
+	int statesize = states.size();
 	printf("generate %d\n", states.size());
+	double t_Astar = 0, t_greedy = 0, t_ids = 0, dur = 0;
+	clock_t start, end;
 	for (int i = 0; i < states.size(); i++)
 	{
+		printf("test %d\n",i);
 		SNode* tempinit = initSNode(states[i]);
+		start = clock();
 		astar_search.SearchResult(tempinit,target);
-		astar_search.print_result();
-		system("pause");
+		end = clock();
+		dur = (double)(end - start);
+		t_Astar += dur;
+		//printf("%lf\n", dur);
+		//astar_search.print_result();
+		start = clock();
 		greedy_search.SearchResult(tempinit, target);
-		greedy_search.print_result();
-		system("pause");
+		end = clock();
+		dur = (double)(end - start);
+		t_greedy += dur;
+		//printf("%lf\n", dur);
+		//greedy_search.print_result();
+		start = clock();
 		ids_search.SearchResult(tempinit, target);
-		ids_search.print_result();
-		system("pause");
-
+		//ids_search.print_result();
+		end = clock();
+		dur = (double)(end - start);
+		t_ids += dur;
+		//printf("%lf\n", dur);
 	}
-	
+
+	printf("Average Time\nAstar:%lf\nGreedy:%lf\nIDS:%lf\n", t_Astar/statesize / CLOCKS_PER_SEC,t_greedy/statesize / CLOCKS_PER_SEC,t_ids/statesize / CLOCKS_PER_SEC);
 
 	system("pause");
 	return 0;

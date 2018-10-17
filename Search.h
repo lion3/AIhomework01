@@ -80,6 +80,7 @@ public:
 	}
 	SNode* RDLS(SNode* node, SNode* goal, int limit) {
 		if (equal(node, goal)) {
+			printf("find goal\n");
 			return node;
 		}
 		else if (limit == 0) {

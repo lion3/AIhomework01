@@ -32,7 +32,7 @@ void GreedySearch::SearchResult(SNode* initNode, SNode* targetNode) {
 				index++;
 				childNode(child, node, dir[i]);
 				usedmap.insert(map<int, int>::value_type(child->key, index - 1));
-				child->cost = calculate_cost(child, block_distance);
+				child->cost = calculate_cost(child, NotInPlace);
 				if (used[usedmap.find(child->key)->second] == false) {
 					//not in frontier?
 					frontier.push(child);
@@ -75,7 +75,7 @@ void AstarSearch::SearchResult(SNode* initNode, SNode* targetNode) {
 				index++;
 				childNode(child, node, dir[i]);
 				usedmap.insert(map<int, int>::value_type(child->key, index-1));
-				child->cost = calculate_cost(child, block_distance);
+				child->cost = calculate_cost(child, NotInPlace);
 				if (used[usedmap.find(child->key)->second]== false) {
 					//not in frontier?
 					frontier.push(child);
